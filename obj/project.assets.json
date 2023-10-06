@@ -101,6 +101,16 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "LoggerService/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/LoggerService.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/LoggerService.dll": {}
+        }
       }
     }
   },
@@ -466,10 +476,16 @@
         "swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "LoggerService/1.0.0": {
+      "type": "project",
+      "path": "../LoggerService/LoggerService.csproj",
+      "msbuildProject": "../LoggerService/LoggerService.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "LoggerService >= 1.0.0",
       "NLog >= 5.2.4",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
@@ -500,7 +516,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\alexandr\\source\\repos\\LoggerService\\LoggerService.csproj": {
+              "projectPath": "C:\\Users\\alexandr\\source\\repos\\LoggerService\\LoggerService.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
