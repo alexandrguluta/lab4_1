@@ -1,6 +1,9 @@
-﻿using Contracts;
+﻿using AutoMapper;
+using Entities.DataTransferObjects;
+using Entities.Models;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using NLog;
 using System.Linq.Expressions;
 using WebApplication1.Extensions;
@@ -29,10 +32,11 @@ public class Startup
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
+        services.AddAutoMapper(typeof(Startup));
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env,ILoggerManager logger)
     {
         if (env.IsDevelopment())
         {
@@ -40,7 +44,7 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
-
+        app.ConfigureExceptionHandler(logger);
         app.UseHttpsRedirection();
         app.UseStaticFiles();
         app.UseCors("CorsPolicy");
@@ -68,22 +72,11 @@ public class Startup
         void Delete(T entity);
     }
 }
-[Route("[controller]")]
-[ApiController]
-public class WeatherForecastController : ControllerBase
+public class MappingProfile : Profile
 {
-    private readonly IRepositoryManager _repository;
-    public WeatherForecastController(IRepositoryManager repository)
+    public MappingProfile()
     {
-        _repository = repository;
-    }
-
-    [HttpGet]
-    public ActionResult<IEnumerable<string>> Get()
-    {
-        _repository.Company.AnyMethodFromCompanyRepository();
-        _repository.Employee.AnyMethodFromEmployeeRepository();
-        return new string[] { "value1", "value2" };
+        CreateMap<Company, CompanyDto>().ForMember(c => c.FullAddress,opt => opt.MapFrom(x => string.Join(' ', x.Address, x.Country)));
     }
 }
 

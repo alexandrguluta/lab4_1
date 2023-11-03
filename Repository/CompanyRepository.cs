@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using static Contracts.Contracts;
+using Contracts;
 
 namespace Repository
 {
@@ -18,8 +19,14 @@ namespace Repository
 
         public void AnyMethodFromCompanyRepository()
         {
-            throw new NotImplementedException();
+           
         }
+
+        public IEnumerable<Company> GetAllCompanies(bool trackChanges) =>
+                FindAll(trackChanges)
+                .OrderBy(c => c.Name)
+                .ToList();
+
     }
     public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
@@ -30,7 +37,7 @@ namespace Repository
 
         public void AnyMethodFromEmployeeRepository()
         {
-            throw new NotImplementedException();
+
         }
     }
 }

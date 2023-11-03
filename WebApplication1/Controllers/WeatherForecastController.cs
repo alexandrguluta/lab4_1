@@ -1,25 +1,28 @@
+using AutoMapper;
 using Contracts;
+using Entities.DataTransferObjects;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
-[Route("[controller]")]
+[Route("api/companies")]
 [ApiController]
-public class WeatherForecastController : ControllerBase
+public class CompaniesController : ControllerBase
 {
-    private ILoggerManager _logger;
-    public WeatherForecastController(ILoggerManager logger)
+    private readonly IRepositoryManager _repository;
+    private readonly ILoggerManager _logger;
+    private readonly IMapper _mapper;
+    public CompaniesController(IRepositoryManager repository, ILoggerManager
+   logger, IMapper mapper)
     {
+        _repository = repository;
         _logger = logger;
+        _mapper = mapper;
     }
     [HttpGet]
-    public IEnumerable<string> Get()
+    public IActionResult GetCompanies()
     {
-        _logger.LogInfo("¬от информационное сообщение от нашего контроллера значений.");
-       
-        _logger.LogDebug("¬от отладочное сообщение от нашего контроллера значений.");
-       
-        _logger.LogWarn("¬от сообщение предупреждени€ от нашего контроллера значений.");
-       
-        _logger.LogError("¬от сообщение об ошибке от нашего контроллера значений.");
-    return new string[] { "value1", "value2" };
+        var companies = _repository.Company.GetAllCompanies(trackChanges: false);
+        var companiesDto = _mapper.Map<IEnumerable<CompanyDto>>(companies);
+        return Ok(companiesDto);
     }
 }
