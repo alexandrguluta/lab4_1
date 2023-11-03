@@ -29,6 +29,9 @@ namespace Repository
                 .OrderBy(c => c.Name)
                 .ToList();
 
+        public void CreateCompany(Company company) => Create(company);
+
+        public IEnumerable<Company> GetByIds(IEnumerable<Guid> ids, bool trackChanges) => FindByCondition(x => ids.Contains(x.Id), trackChanges).ToList();
     }
     public class EmployeeRepository : RepositoryBase<Employee>, IEmployeeRepository
     {
@@ -50,6 +53,14 @@ namespace Repository
         object IEmployeeRepository.GetEmployee(Guid companyId, Guid id, bool trackChanges)
         {
             throw new NotImplementedException();
+        }
+
+        public void CreateEmployeeForCompany(Guid companyId, Employee employee)
+        {
+           
+                employee.CompanyId = companyId;
+                Create(employee);
+            
         }
     }
 }
