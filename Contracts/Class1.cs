@@ -36,14 +36,16 @@ namespace Contracts
 {
     public interface ICompanyRepository
     {
-        void AnyMethodFromCompanyRepository();
         IEnumerable<Company> GetAllCompanies(bool trackChanges);
+        Company GetCompany(Guid companyId, bool trackChanges);
     }
 }
 namespace Contracts
 {
     public interface IEmployeeRepository
     {
-        void AnyMethodFromEmployeeRepository();
+        object GetEmployee(Guid companyId, Guid id, bool trackChanges);
+        IEnumerable<Employee> GetEmployees(Guid companyId, bool trackChanges);
+
     }
 }

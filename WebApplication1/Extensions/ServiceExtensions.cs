@@ -23,6 +23,9 @@ namespace WebApplication1.Extensions
             IConfiguration configuration) =>
             services.AddDbContext<RepositoryContext>(opts => opts.UseSqlServer(configuration.GetConnectionString("sqlConnection"), b =>b.MigrationsAssembly("WebApplication1")));
         public static void ConfigureRepositoryManager(this IServiceCollection services) => services.AddScoped<IRepositoryManager, RepositoryManager>();
+        public static IMvcBuilder AddCustomCSVFormatter(this IMvcBuilder builder) =>
+builder.AddMvcOptions(config => config.OutputFormatters.Add(new
+CsvOutputFormatter()));
     }
    
 
