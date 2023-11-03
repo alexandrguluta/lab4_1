@@ -13,6 +13,7 @@ public class RepositoryManager : IRepositoryManager
     private RepositoryContext _repositoryContext;
     private ICompanyRepository _companyRepository;
     private IEmployeeRepository _employeeRepository;
+    public Task SaveAsync() => _repositoryContext.SaveChangesAsync();
     public RepositoryManager(RepositoryContext repositoryContext)
     {
         _repositoryContext = repositoryContext;

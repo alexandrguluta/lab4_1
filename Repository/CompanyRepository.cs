@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Contracts.Contracts;
 using Contracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Repository
 {
@@ -18,7 +19,13 @@ namespace Repository
         : base(repositoryContext)
         {
         }
-
+        public void DeleteCompany(Company company)
+        {
+            Delete(company);
+        }
+        public async Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges)=> await FindAll(trackChanges).OrderBy(c => c.Name).ToListAsync();
+        public async Task<Company> GetCompanyAsync(Guid companyId, bool trackChanges) =>await FindByCondition(c => c.Id.Equals(companyId), trackChanges).SingleOrDefaultAsync();
+        public async Task<IEnumerable<Company>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges) => await FindByCondition(x => ids.Contains(x.Id), trackChanges).ToListAsync();
         public void AnyMethodFromCompanyRepository()
         {
            
@@ -40,6 +47,10 @@ namespace Repository
         .OrderBy(e => e.Name);
         public Employee GetEmployee(Guid companyId, Guid id, bool trackChanges) =>FindByCondition(e => e.CompanyId.Equals(companyId) && e.Id.Equals(id),trackChanges).SingleOrDefault();
 
+        public void DeleteEmployee(Employee employee)
+        {
+            Delete(employee);
+        }
         public EmployeeRepository(RepositoryContext repositoryContext)
         : base(repositoryContext)
         {

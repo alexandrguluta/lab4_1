@@ -28,8 +28,8 @@ namespace Contracts
     {
         ICompanyRepository Company { get; }
         IEmployeeRepository Employee { get; }
-        void Save();
-    }
+        Task SaveAsync();
+}
 
 
 
@@ -37,18 +37,21 @@ namespace Contracts
 {
     public interface ICompanyRepository
     {
-        IEnumerable<Company> GetAllCompanies(bool trackChanges);
-        Company GetCompany(Guid companyId, bool trackChanges);
+        Task<IEnumerable<Company>> GetAllCompaniesAsync(bool trackChanges);
+        Task<Company> GetCompanyAsync(Guid companyId, bool trackChanges);
         void CreateCompany(Company company);
-        IEnumerable<Company> GetByIds(IEnumerable<Guid> ids, bool trackChanges);
+        Task<IEnumerable<Company>> GetByIdsAsync(IEnumerable<Guid> ids, bool trackChanges);
+        void DeleteCompany(Company company);
     }
 }
 namespace Contracts
 {
     public interface IEmployeeRepository
     {
+
         object GetEmployee(Guid companyId, Guid id, bool trackChanges);
         IEnumerable<Employee> GetEmployees(Guid companyId, bool trackChanges);
         void CreateEmployeeForCompany(Guid companyId, Employee employee);
+        void DeleteEmployee(Employee employee);
     }
 }
