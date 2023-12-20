@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20231102213954_newMigrations")]
-    partial class newMigrations
+    [Migration("20230925160439_InitalData")]
+    partial class InitalData
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,111 +24,6 @@ namespace WebApplication1.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Entities.Models.Admin", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("AdminID");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<Guid?>("AdminId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("EmployeeNumber")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AdminId");
-
-                    b.ToTable("Admins");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("1d017d9c-79b8-11ee-b962-0242ac120002"),
-                            Address = "adress",
-                            EmployeeNumber = 27272,
-                            Name = "name    ",
-                            Number = "0908080"
-                        },
-                        new
-                        {
-                            Id = new Guid("7aea132a-79bc-11ee-b962-0242ac120002"),
-                            Address = "kllklkl",
-                            EmployeeNumber = 27272,
-                            Name = "namename",
-                            Number = "1221122112"
-                        });
-                });
-
-            modelBuilder.Entity("Entities.Models.ApplicationUser", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ApplicationUserID");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Country")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
-
-                    b.ToTable("ApplicationUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c9dcb048-79b5-11ee-b962-0242ac120002"),
-                            Address = "example addr",
-                            Country = "uk",
-                            Name = "example name1",
-                            PhoneNumber = "9999999999"
-                        },
-                        new
-                        {
-                            Id = new Guid("2efef7d8-79b6-11ee-b962-0242ac120002"),
-                            Address = "example addr",
-                            Country = "uk",
-                            Name = "example name2",
-                            PhoneNumber = "9999999999"
-                        });
-                });
 
             modelBuilder.Entity("Entities.Models.Company", b =>
                 {
@@ -228,20 +123,6 @@ namespace WebApplication1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Admin", b =>
-                {
-                    b.HasOne("Entities.Models.Admin", null)
-                        .WithMany("Admins")
-                        .HasForeignKey("AdminId");
-                });
-
-            modelBuilder.Entity("Entities.Models.ApplicationUser", b =>
-                {
-                    b.HasOne("Entities.Models.ApplicationUser", null)
-                        .WithMany("ApplicationUsers")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("Entities.Models.Employee", b =>
                 {
                     b.HasOne("Entities.Models.Company", "Company")
@@ -251,16 +132,6 @@ namespace WebApplication1.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("Entities.Models.Admin", b =>
-                {
-                    b.Navigation("Admins");
-                });
-
-            modelBuilder.Entity("Entities.Models.ApplicationUser", b =>
-                {
-                    b.Navigation("ApplicationUsers");
                 });
 
             modelBuilder.Entity("Entities.Models.Company", b =>

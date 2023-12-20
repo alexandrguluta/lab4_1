@@ -43,6 +43,17 @@ public class Startup
         {
             options.SuppressModelStateInvalidFilter = true;
         });
+        services.Configure<ApiBehaviorOptions>(options =>
+        {
+            options.SuppressModelStateInvalidFilter = true;
+        });
+        services.AddControllers(config =>
+        {
+            config.Filters.Add(new GlobalFilterExample());
+        });
+        services.AddScoped<ValidationFilterAttribute>();
+        services.AddScoped<ValidateCompanyExistsAttribute>();
+        services.AddScoped<ValidateEmployeeForCompanyExistsAttribute>();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

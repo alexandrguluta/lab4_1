@@ -1,6 +1,8 @@
 ﻿using Contracts;
 using Entities;
 using Entities.Models;
+using Entities.RequestFeatures;
+using System.ComponentModel.Design;
 using static Contracts.Contracts;
 
 
@@ -46,12 +48,16 @@ namespace Contracts
 }
 namespace Contracts
 {
-    public interface IEmployeeRepository
-    {
-
-        object GetEmployee(Guid companyId, Guid id, bool trackChanges);
-        IEnumerable<Employee> GetEmployees(Guid companyId, bool trackChanges);
-        void CreateEmployeeForCompany(Guid companyId, Employee employee);
-        void DeleteEmployee(Employee employee);
+    
+        public interface IEmployeeRepository
+        {
+            Task<IEnumerable<Employee>> GetEmployeesAsync(Guid companyId,
+           EmployeeParameters employeeParameters, bool trackChanges);
+            Task<Employee> GetEmployeeAsync(Guid companyId, Guid id, bool trackChanges);
+            void CreateEmployeeForCompany(Guid companyId, Employee employee);
+            void DeleteEmployee(Employee employee);
+        object GetEmployeesAsync(Guid companyId, Guid id, bool trackChanges);
+        Task<PagedList<Employee>> GetEmployeesAsync(Guid companyId, EmployeeParameters employeeParameters, bool trackChanges);
     }
+    
 }
