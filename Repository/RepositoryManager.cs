@@ -1,42 +1,55 @@
 ﻿using Contracts;
 using Entities;
-using Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static Contracts.Contracts;
 
-public class RepositoryManager : IRepositoryManager
+namespace Repository
 {
-    private RepositoryContext _repositoryContext;
-    private ICompanyRepository _companyRepository;
-    private IEmployeeRepository _employeeRepository;
-    public Task SaveAsync() => _repositoryContext.SaveChangesAsync();
-    public RepositoryManager(RepositoryContext repositoryContext)
+    public class RepositoryManager : IRepositoryManager
     {
-        _repositoryContext = repositoryContext;
-    }
-    public ICompanyRepository Company
-    {
-        get
+        private RepositoryContext _repositoryContext;
+        private ICompanyRepository _companyRepository;
+        private IEmployeeRepository _employeeRepository;
+        private IUserRepository _carRepository;
+        private IAdminRepository _driverRepository;
+        public RepositoryManager(RepositoryContext repositoryContext)
         {
-            if (_companyRepository == null)
-                _companyRepository = new CompanyRepository(_repositoryContext);
-            return _companyRepository;
+            _repositoryContext = repositoryContext;
         }
-    }
-    public IEmployeeRepository Employee
-    {
-
-        get
+        public ICompanyRepository Company
         {
-            
-        if (_employeeRepository == null)
-                _employeeRepository = new EmployeeRepository(_repositoryContext);
-            return _employeeRepository;
+            get
+            {
+                if (_companyRepository == null)
+                    _companyRepository = new CompanyRepository(_repositoryContext);
+                return _companyRepository;
+            }
         }
+        public IEmployeeRepository Employee
+        {
+            get
+            {
+                if (_employeeRepository == null)
+                    _employeeRepository = new EmployeeRepository(_repositoryContext);
+                return _employeeRepository;
+            }
+        }
+        public IUserRepository User
+        {
+            get
+            {
+                if (_carRepository == null)
+                    _carRepository = new UserRepository(_repositoryContext);
+                return _carRepository;
+            }
+        }
+        public IAdminRepository Admin
+        {
+            get
+            {
+                if (_driverRepository == null)
+                    _driverRepository = new AdminRepository(_repositoryContext);
+                return _driverRepository;
+            }
+        }
+        public Task SaveAsync() => _repositoryContext.SaveChangesAsync();
     }
-    public void Save() => _repositoryContext.SaveChanges();
 }
