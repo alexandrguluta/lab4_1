@@ -1,0 +1,91 @@
+﻿<Page x:Class="WebAppIImpl.Pages.MainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      mc:Ignorable="d"
+      Title="MainPage" Height="450" Width="800">
+    
+    <Page.Resources>
+        <DataTemplate x:Key="ItemTemplateAdminBrand">
+            <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+        <DataTemplate x:Key="ItemTemplateCompany">
+            <StackPanel>
+                <TextBlock Text="{Binding Name}" />
+                <TextBlock Text="{Binding FullAddress}" />
+            </StackPanel>
+        </DataTemplate>
+    </Page.Resources>
+    
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        
+        <Button 
+            Grid.Row="0" 
+            Grid.Column="0" 
+            Content="Get Users" 
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center" 
+            Click="AdminBrands_Click"/>
+        
+        <Button
+            Grid.Row="0" 
+            Grid.Column="1" 
+            Content="Get Companies"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            Click="Companies_Click"/>
+        
+        <ListBox 
+            Grid.Row="1" 
+            Grid.Column="0" 
+            ItemTemplate="{StaticResource ItemTemplateAdminBrand}"
+            VerticalAlignment="Stretch" 
+            HorizontalAlignment="Stretch"
+            Name="AdminBrandsListBox" 
+            SelectionChanged="AdminBrandsListBox_OnSelectionChanged">
+        </ListBox>
+        
+        <ListBox 
+            Grid.Row="1" 
+            Grid.Column="1" 
+            ItemTemplate="{StaticResource ItemTemplateCompany}"
+            VerticalAlignment="Stretch" 
+            HorizontalAlignment="Stretch"
+            Name="CompaniesListBox" 
+            SelectionChanged="CompaniesListBox_OnSelectionChanged">
+        </ListBox>
+        
+        <Button
+            Grid.Row="2" 
+            Grid.Column="0" 
+            Grid.ColumnSpan="2"
+            Content="Выход"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            Click="ExitButton_Click"/>
+        
+        <Button Grid.Column="0" Grid.Row="2"
+            Content="Добавить водителя"
+            VerticalAlignment="Center" 
+            HorizontalAlignment="Center"
+            Click="AddAdminBrandButton_Click"/>
+        
+        <Button Grid.Column="1" Grid.Row="2"
+                Content="Добавить Компанию"
+                VerticalAlignment="Center" 
+                HorizontalAlignment="Center"
+                Click="AddCompanyButton_Click"/>
+        
+    </Grid>
+</Page>

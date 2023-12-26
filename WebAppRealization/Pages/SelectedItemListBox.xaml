@@ -1,0 +1,56 @@
+﻿<Page x:Class="WebAppIImpl.Pages.SelectedItemListBox"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:WebAppIImpl.Pages"
+      mc:Ignorable="d"
+      Title="SelectedItemListBox" Height="450" Width="800">
+    
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        
+        <ListBox Grid.Row="0"
+                 VerticalAlignment="Stretch" 
+                 HorizontalAlignment="Stretch"
+                 Name="listBox">
+        </ListBox>
+        
+        <StackPanel Grid.Row="1">
+            <Button 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center"
+                Content="Get Content"
+                Margin="0 0 0 10"
+                Click="ButtonBase_OnClick"/>
+            <Button 
+                Name="UpdateButton"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center"
+                Margin="0 0 0 10"
+                Click="UpdateButton_OnClick"/>
+            <Button 
+                Name="DeleteAdminModelOrEmployeeButton"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center"
+                Margin="0 0 0 10"
+                Click="DeleteAdminModelOrEmployeeButton_OnClick"/>
+            <Button 
+                Name="DeleteButton"
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center"
+                Margin="0 0 0 10"
+                Click="DeleteButton_OnClick"/>
+            <Button 
+                VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center"
+                Content="Назад"
+                Click="BackButton_OnClick"/>
+        </StackPanel>
+    </Grid>
+</Page>
+    
